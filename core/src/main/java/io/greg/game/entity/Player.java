@@ -2,16 +2,19 @@ package io.greg.game.entity;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import io.greg.engine.collision.Collision;
 import io.greg.engine.entity.Entity;
 import io.greg.engine.transform.Transform;
 
 public class Player extends Entity {
     private final Transform transform;
+    private final Collision collision;
 
     private final float speed;
 
     public Player(Transform transform, float speed) {
         this.transform = transform;
+        this.collision = new Collision();
         this.speed = speed;
     }
 
@@ -24,7 +27,7 @@ public class Player extends Entity {
 
     @Override
     public void update(float delta) {
-
+        collision.update(transform.getX(), transform.getY(), transform.getWidth(), transform.getHeight());
     }
 
     @Override
@@ -37,5 +40,10 @@ public class Player extends Entity {
 
     public Transform getTransform() {
         return transform;
+    }
+
+    @Override
+    public Collision getCollision() {
+        return collision;
     }
 }

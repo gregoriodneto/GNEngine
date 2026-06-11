@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
+import io.greg.engine.collision.Collision;
+import io.greg.engine.collision.CollisionManager;
 import io.greg.engine.entity.EntityManager;
 import io.greg.engine.transform.Transform;
 import io.greg.engine.screen.BaseScreen;
@@ -24,6 +26,8 @@ public class MainMenuScreen extends BaseScreen {
 
     private Player player;
     private Enemy enemy;
+
+    private CollisionManager collisionManager;
 
     @Override
     public void show() {
@@ -57,6 +61,8 @@ public class MainMenuScreen extends BaseScreen {
 
         playerController = new PlayerController(player);
         enemyController = new EnemyController(enemy);
+
+        collisionManager = new CollisionManager();
 
         camera = new OrthographicCamera();
         camera.setToOrtho(
@@ -94,6 +100,10 @@ public class MainMenuScreen extends BaseScreen {
             0.4f,
             1f
         );
+
+        if (collisionManager.check(player, enemy)) {
+            Gdx.app.log("BOUNDS", "Colidiu!!");
+        }
 
         playerController.update(delta);
         enemyController.update(delta);

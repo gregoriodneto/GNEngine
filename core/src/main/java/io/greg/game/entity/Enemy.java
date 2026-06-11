@@ -1,18 +1,19 @@
 package io.greg.game.entity;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.MathUtils;
+import io.greg.engine.collision.Collision;
 import io.greg.engine.entity.Entity;
 import io.greg.engine.transform.Transform;
 
 public class Enemy extends Entity {
     private final Transform transform;
+    private final Collision collision;
     private final float speed;
 
     public Enemy(Transform transform, float speed) {
         this.transform = transform;
+        this.collision = new Collision();
         this.speed = speed;
     }
 
@@ -25,7 +26,7 @@ public class Enemy extends Entity {
 
     @Override
     public void update(float delta) {
-
+        collision.update(transform.getX(), transform.getY(), transform.getWidth(), transform.getHeight());
     }
 
     @Override
@@ -38,5 +39,10 @@ public class Enemy extends Entity {
 
     public Transform getTransform() {
         return transform;
+    }
+
+    @Override
+    public Collision getCollision() {
+        return collision;
     }
 }
