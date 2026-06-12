@@ -7,8 +7,6 @@ import io.greg.engine.entity.Entity;
 import io.greg.engine.transform.Transform;
 
 public class Enemy extends Entity {
-    private final Transform transform;
-    private final Collision collision;
     private final float speed;
 
     public Enemy(Transform transform, float speed) {
@@ -25,6 +23,16 @@ public class Enemy extends Entity {
     }
 
     @Override
+    public void onCollision(Entity other) {
+        other.decrementLife(1);
+    }
+
+    @Override
+    public void decrementLife(int damage) {
+
+    }
+
+    @Override
     public void update(float delta) {
         collision.update(transform.getX(), transform.getY(), transform.getWidth(), transform.getHeight());
     }
@@ -35,14 +43,5 @@ public class Enemy extends Entity {
         shape.setColor(Color.RED);
         shape.rect(transform.getX(), transform.getY(), transform.getWidth(), transform.getHeight());
         shape.end();
-    }
-
-    public Transform getTransform() {
-        return transform;
-    }
-
-    @Override
-    public Collision getCollision() {
-        return collision;
     }
 }

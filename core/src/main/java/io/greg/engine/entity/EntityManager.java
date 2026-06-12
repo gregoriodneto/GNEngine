@@ -3,6 +3,7 @@ package io.greg.engine.entity;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class EntityManager {
@@ -30,5 +31,9 @@ public class EntityManager {
         for (Entity entity : entities) {
             entity.render(shape);
         }
+    }
+
+    public List<Entity> getEntities() {
+        return Collections.unmodifiableList(entities);
     }
 }

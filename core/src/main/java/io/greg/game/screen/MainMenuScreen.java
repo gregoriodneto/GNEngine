@@ -41,7 +41,8 @@ public class MainMenuScreen extends BaseScreen {
         );
         player = new Player(
             playerTransform,
-            150f
+            150f,
+            10
         );
 
         Transform enemyTransform = new Transform(
@@ -101,14 +102,13 @@ public class MainMenuScreen extends BaseScreen {
             1f
         );
 
-        if (collisionManager.check(player, enemy)) {
-            Gdx.app.log("BOUNDS", "Colidiu!!");
-        }
-
         playerController.update(delta);
         enemyController.update(delta);
 
         entityManager.update(delta);
+
+        collisionManager.checkAll(entityManager);
+
         entityManager.render(shape);
     }
 
