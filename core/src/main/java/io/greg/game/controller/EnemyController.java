@@ -1,5 +1,6 @@
 package io.greg.game.controller;
 
+import io.greg.engine.controller.Controller;
 import io.greg.game.entity.Enemy;
 
 public class EnemyController implements Controller {

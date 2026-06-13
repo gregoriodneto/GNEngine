@@ -4,14 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
-import io.greg.engine.collision.Collision;
+import io.greg.engine.camera.CameraController;
 import io.greg.engine.collision.CollisionManager;
 import io.greg.engine.entity.EntityManager;
 import io.greg.engine.entity.Health;
 import io.greg.engine.transform.Transform;
 import io.greg.engine.screen.BaseScreen;
 import io.greg.engine.config.GameConfig;
-import io.greg.game.controller.ControllerManager;
+import io.greg.engine.controller.ControllerManager;
 import io.greg.game.controller.EnemyController;
 import io.greg.game.controller.PlayerController;
 import io.greg.game.entity.Enemy;
@@ -32,6 +32,8 @@ public class MainMenuScreen extends BaseScreen {
     private CollisionManager collisionManager;
 
     private ControllerManager controllerManager;
+
+    private CameraController cameraController;
 
     @Override
     public void show() {
@@ -81,26 +83,15 @@ public class MainMenuScreen extends BaseScreen {
             GameConfig.HEIGHT
         );
 
-        camera.position.set(
-            player.getTransform().getX(),
-            player.getTransform().getY(),
-            0
-        );
-
-        camera.update();
+        cameraController = new CameraController(camera);
+        cameraController.follow(player);
 
         Gdx.app.log("CAMERA", camera.viewportWidth + " x " + camera.viewportHeight);
     }
 
     @Override
     public void render(float delta) {
-        camera.position.set(
-            player.getTransform().getX() + player.getTransform().getWidth() / 2f,
-            player.getTransform().getY() + player.getTransform().getWidth() / 2f,
-            0
-        );
-
-        camera.update();
+        cameraController.update();
 
         shape.setProjectionMatrix(camera.combined);
 

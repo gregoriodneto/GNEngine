@@ -2,6 +2,7 @@ package io.greg.game.controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import io.greg.engine.controller.Controller;
 import io.greg.game.entity.Player;
 
 public class PlayerController implements Controller {

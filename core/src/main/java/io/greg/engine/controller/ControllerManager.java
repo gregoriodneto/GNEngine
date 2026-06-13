@@ -1,4 +1,4 @@
-package io.greg.game.controller;
+package io.greg.engine.controller;
 
 import java.util.ArrayList;
 import java.util.List;

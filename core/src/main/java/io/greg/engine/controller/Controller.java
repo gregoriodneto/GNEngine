@@ -1,4 +1,4 @@
-package io.greg.game.controller;
+package io.greg.engine.controller;
 
 public interface Controller {
     void update(float delta);
