@@ -24,6 +24,4 @@ public abstract class Entity {
 
     public abstract void onCollision(Entity other);
 
-    public abstract void decrementLife(int damage);
-
 }

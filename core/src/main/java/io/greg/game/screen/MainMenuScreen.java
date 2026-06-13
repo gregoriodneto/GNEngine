@@ -7,9 +7,11 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import io.greg.engine.collision.Collision;
 import io.greg.engine.collision.CollisionManager;
 import io.greg.engine.entity.EntityManager;
+import io.greg.engine.entity.Health;
 import io.greg.engine.transform.Transform;
 import io.greg.engine.screen.BaseScreen;
 import io.greg.engine.config.GameConfig;
+import io.greg.game.controller.ControllerManager;
 import io.greg.game.controller.EnemyController;
 import io.greg.game.controller.PlayerController;
 import io.greg.game.entity.Enemy;
@@ -29,6 +31,8 @@ public class MainMenuScreen extends BaseScreen {
 
     private CollisionManager collisionManager;
 
+    private ControllerManager controllerManager;
+
     @Override
     public void show() {
         shape = new ShapeRenderer();
@@ -42,7 +46,7 @@ public class MainMenuScreen extends BaseScreen {
         player = new Player(
             playerTransform,
             150f,
-            10
+            new Health(10)
         );
 
         Transform enemyTransform = new Transform(
@@ -60,8 +64,13 @@ public class MainMenuScreen extends BaseScreen {
         entityManager.add(player);
         entityManager.add(enemy);
 
+        controllerManager = new ControllerManager();
+
         playerController = new PlayerController(player);
         enemyController = new EnemyController(enemy);
+
+        controllerManager.add(playerController);
+        controllerManager.add(enemyController);
 
         collisionManager = new CollisionManager();
 
@@ -102,8 +111,7 @@ public class MainMenuScreen extends BaseScreen {
             1f
         );
 
-        playerController.update(delta);
-        enemyController.update(delta);
+        controllerManager.update(delta);
 
         entityManager.update(delta);
 

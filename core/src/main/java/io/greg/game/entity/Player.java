@@ -5,26 +5,26 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import io.greg.engine.collision.Collision;
 import io.greg.engine.entity.Entity;
+import io.greg.engine.entity.Health;
 import io.greg.engine.transform.Transform;
 
 public class Player extends Entity {
     private final float speed;
-    private int life;
+    private Health health;
 
-    public Player(Transform transform, float speed, int life) {
+    public Player(Transform transform, float speed, Health health) {
         this.transform = transform;
         this.collision = new Collision();
         this.speed = speed;
-        this.life = life;
+        this.health = health;
     }
 
-    @Override
     public void decrementLife(int damage) {
-        if (life <= 0) {
+        if (health.getHp() <= 0) {
             return;
         }
-        life -= damage;
-        Gdx.app.log("DAMAGE", "Vida do Jogador: " + String.valueOf(life));
+        health.damage(damage);
+        Gdx.app.log("DAMAGE", "Vida do Jogador: " + String.valueOf(health.getHp()));
     }
 
     @Override

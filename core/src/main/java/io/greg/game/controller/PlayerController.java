@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import io.greg.game.entity.Player;
 
-public class PlayerController {
+public class PlayerController implements Controller {
     private final Player player;
 
     public PlayerController(Player player) {

@@ -2,7 +2,7 @@ package io.greg.game.controller;
 
 import io.greg.game.entity.Enemy;
 
-public class EnemyController {
+public class EnemyController implements Controller {
     private final Enemy enemy;
 
     private float directionX;

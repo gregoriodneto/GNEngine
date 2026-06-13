@@ -24,12 +24,10 @@ public class Enemy extends Entity {
 
     @Override
     public void onCollision(Entity other) {
-        other.decrementLife(1);
-    }
-
-    @Override
-    public void decrementLife(int damage) {
-
+        if (other instanceof Player) {
+            Player player = (Player) other;
+            player.decrementLife(1);
+        }
     }
 
     @Override
