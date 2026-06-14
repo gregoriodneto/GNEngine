@@ -5,13 +5,15 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import io.greg.engine.collision.Collision;
 import io.greg.engine.entity.Entity;
 import io.greg.engine.transform.Transform;
+import io.greg.engine.world.World;
 
 public class Enemy extends Entity {
     private final float speed;
 
-    public Enemy(Transform transform, float speed) {
+    public Enemy(Transform transform, World world, float speed) {
         this.transform = transform;
         this.collision = new Collision();
+        this.world = world;
         this.speed = speed;
     }
 
@@ -19,7 +21,7 @@ public class Enemy extends Entity {
     public void move(float x, float y, float delta) {
         float dx = x * speed * delta;
         float dy = y * speed * delta;
-        transform.translate(dx, dy);
+        translate(dx,dy);
     }
 
     @Override

@@ -7,16 +7,18 @@ import io.greg.engine.collision.Collision;
 import io.greg.engine.entity.Entity;
 import io.greg.engine.entity.Health;
 import io.greg.engine.transform.Transform;
+import io.greg.engine.world.World;
 
 public class Player extends Entity {
     private final float speed;
     private Health health;
 
-    public Player(Transform transform, float speed, Health health) {
+    public Player(Transform transform, float speed, Health health, World world) {
         this.transform = transform;
         this.collision = new Collision();
         this.speed = speed;
         this.health = health;
+        this.world = world;
     }
 
     public void decrementLife(int damage) {
@@ -31,7 +33,8 @@ public class Player extends Entity {
     public void move(float x, float y, float delta) {
         float dx = x * speed * delta;
         float dy = y * speed * delta;
-        transform.translate(dx, dy);
+
+        translate(dx,dy);
     }
 
     @Override

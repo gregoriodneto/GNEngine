@@ -30,8 +30,23 @@ public class Transform {
         return height;
     }
 
-    public void translate(float dx, float dy) {
-        this.x += dx;
-        this.y += dy;
+    public void translate(
+        float dx,
+        float dy,
+        float minX,
+        float minY,
+        float maxX,
+        float maxY
+    ) {
+        x += dx;
+        y += dy;
+
+        x = Math.max(minX, Math.min(x, maxX));
+        y = Math.max(minY, Math.min(y, maxY));
+    }
+
+    public void setPosition(float x, float y) {
+        this.x = x;
+        this.y = y;
     }
 }

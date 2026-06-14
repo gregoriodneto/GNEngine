@@ -12,6 +12,7 @@ import io.greg.engine.transform.Transform;
 import io.greg.engine.screen.BaseScreen;
 import io.greg.engine.config.GameConfig;
 import io.greg.engine.controller.ControllerManager;
+import io.greg.engine.world.World;
 import io.greg.game.controller.EnemyController;
 import io.greg.game.controller.PlayerController;
 import io.greg.game.entity.Enemy;
@@ -29,6 +30,8 @@ public class MainMenuScreen extends BaseScreen {
     private Player player;
     private Enemy enemy;
 
+    private World world;
+
     private CollisionManager collisionManager;
 
     private ControllerManager controllerManager;
@@ -39,6 +42,8 @@ public class MainMenuScreen extends BaseScreen {
     public void show() {
         shape = new ShapeRenderer();
 
+        world = new World(3000, 3000);
+
         Transform playerTransform = new Transform(
             100f,
             100f,
@@ -48,7 +53,8 @@ public class MainMenuScreen extends BaseScreen {
         player = new Player(
             playerTransform,
             150f,
-            new Health(10)
+            new Health(10),
+            world
         );
 
         Transform enemyTransform = new Transform(
@@ -59,6 +65,7 @@ public class MainMenuScreen extends BaseScreen {
         );
         enemy = new Enemy(
             enemyTransform,
+            world,
             100f
         );
 
@@ -83,7 +90,7 @@ public class MainMenuScreen extends BaseScreen {
             GameConfig.HEIGHT
         );
 
-        cameraController = new CameraController(camera);
+        cameraController = new CameraController(camera,world);
         cameraController.follow(player);
 
         Gdx.app.log("CAMERA", camera.viewportWidth + " x " + camera.viewportHeight);
