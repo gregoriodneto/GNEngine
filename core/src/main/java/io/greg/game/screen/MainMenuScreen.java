@@ -17,6 +17,7 @@ import io.greg.game.controller.EnemyController;
 import io.greg.game.controller.PlayerController;
 import io.greg.game.entity.Enemy;
 import io.greg.game.entity.Player;
+import io.greg.game.spawner.EnemySpawner;
 
 public class MainMenuScreen extends BaseScreen {
     private ShapeRenderer shape;
@@ -38,6 +39,8 @@ public class MainMenuScreen extends BaseScreen {
 
     private CameraController cameraController;
 
+    private EnemySpawner enemySpawner;
+
     @Override
     public void show() {
         shape = new ShapeRenderer();
@@ -47,8 +50,8 @@ public class MainMenuScreen extends BaseScreen {
         Transform playerTransform = new Transform(
             100f,
             100f,
-            100f,
-            100f
+            32f,
+            32f
         );
         player = new Player(
             playerTransform,
@@ -60,8 +63,8 @@ public class MainMenuScreen extends BaseScreen {
         Transform enemyTransform = new Transform(
             300f,
             300f,
-            100f,
-            100f
+            32f,
+            32f
         );
         enemy = new Enemy(
             enemyTransform,
@@ -80,6 +83,12 @@ public class MainMenuScreen extends BaseScreen {
 
         controllerManager.add(playerController);
         controllerManager.add(enemyController);
+
+        enemySpawner = new EnemySpawner(
+            entityManager,
+            world,
+            controllerManager
+        );
 
         collisionManager = new CollisionManager();
 
@@ -112,6 +121,8 @@ public class MainMenuScreen extends BaseScreen {
         controllerManager.update(delta);
 
         entityManager.update(delta);
+
+        enemySpawner.update(delta);
 
         collisionManager.checkAll(entityManager);
 
