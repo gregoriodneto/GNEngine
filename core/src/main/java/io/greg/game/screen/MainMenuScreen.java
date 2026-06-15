@@ -79,7 +79,7 @@ public class MainMenuScreen extends BaseScreen {
         controllerManager = new ControllerManager();
 
         playerController = new PlayerController(player);
-        enemyController = new EnemyController(enemy);
+        enemyController = new EnemyController(enemy, player, true);
 
         controllerManager.add(playerController);
         controllerManager.add(enemyController);
@@ -87,7 +87,8 @@ public class MainMenuScreen extends BaseScreen {
         enemySpawner = new EnemySpawner(
             entityManager,
             world,
-            controllerManager
+            controllerManager,
+            player
         );
 
         collisionManager = new CollisionManager();

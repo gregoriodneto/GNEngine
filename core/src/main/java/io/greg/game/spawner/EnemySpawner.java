@@ -8,18 +8,26 @@ import io.greg.engine.transform.Transform;
 import io.greg.engine.world.World;
 import io.greg.game.controller.EnemyController;
 import io.greg.game.entity.Enemy;
+import io.greg.game.entity.Player;
 
 public class EnemySpawner {
     private final EntityManager entityManager;
     private final World world;
     private final ControllerManager controllerManager;
+    private final Player player;
 
     private float timer = 0;
 
-    public EnemySpawner(EntityManager entityManager, World world, ControllerManager controllerManager) {
+    public EnemySpawner(
+        EntityManager entityManager,
+        World world,
+        ControllerManager controllerManager,
+        Player player
+    ) {
         this.entityManager = entityManager;
         this.world = world;
         this.controllerManager = controllerManager;
+        this.player = player;
     }
 
     public void update(float delta) {
@@ -36,7 +44,7 @@ public class EnemySpawner {
 
             entityManager.add(enemy);
 
-            controllerManager.add(new EnemyController(enemy));
+            controllerManager.add(new EnemyController(enemy, player, true));
 
             Gdx.app.log("TIMER", String.valueOf(timer));
             timer = 0;
