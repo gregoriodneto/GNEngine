@@ -21,13 +21,34 @@ public class CameraController {
     public void update() {
         if (target == null) return;
 
-        camera.position.set(
+        float x =
             target.getTransform().getX()
-                + target.getTransform().getWidth() / 2f,
+            + target.getTransform().getWidth() / 2f;
+
+        float y =
             target.getTransform().getY()
-                + target.getTransform().getHeight() / 2f,
-            0
+                + target.getTransform().getHeight() / 2f;
+
+        float halfWidth = camera.viewportWidth / 2f;
+        float halfHight = camera.viewportHeight / 2f;
+
+        x = Math.max(
+            halfWidth,
+            Math.min(
+                x,
+                world.getWidth() - halfWidth
+            )
         );
+
+        y = Math.max(
+            halfHight,
+            Math.min(
+                y,
+                world.getHeight() - halfHight
+            )
+        );
+
+        camera.position.set(x, y, 0);
 
         camera.update();
     }
