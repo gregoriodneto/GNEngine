@@ -1,6 +1,7 @@
 package io.greg.engine.entity;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
 import io.greg.engine.collision.Collision;
 import io.greg.engine.transform.Transform;
 import io.greg.engine.world.World;
@@ -26,7 +27,7 @@ public abstract class Entity {
 
     public abstract  void render(ShapeRenderer shape);
 
-    public abstract void move(float x, float y, float delta);
+    public abstract void move(Vector2 direction, float delta);
 
     public abstract void onCollision(Entity other);
 

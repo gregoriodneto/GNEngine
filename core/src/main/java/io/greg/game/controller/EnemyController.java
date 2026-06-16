@@ -1,8 +1,11 @@
 package io.greg.game.controller;
 
+import com.badlogic.gdx.math.Vector2;
 import io.greg.engine.controller.Controller;
 import io.greg.game.entity.Enemy;
 import io.greg.game.entity.Player;
+
+import java.util.Vector;
 
 public class EnemyController implements Controller {
     private final Enemy enemy;
@@ -24,22 +27,18 @@ public class EnemyController implements Controller {
 
     public void update(float delta) {
         if (followPlayer) {
-            float dx =
+            Vector2 direction = new Vector2(
                 player.getTransform().getX()
-                    - enemy.getTransform().getX();
-
-            float dy =
+                    - enemy.getTransform().getX(),
                 player.getTransform().getY()
-                    - enemy.getTransform().getY();
+                    - enemy.getTransform().getY()
+            );
 
-            float length = (float) Math.sqrt(dx * dx + dy * dy);
-
-            if (length > 0) {
-                dx /= length;
-                dy /= length;
+            if (!direction.isZero()) {
+                direction.nor();
             }
 
-            enemy.move(dx, dy, delta);
+            enemy.move(direction, delta);
         } else {
             if (enemy.getTransform().getX() >= 800) {
                 directionX = -1f;
@@ -47,7 +46,8 @@ public class EnemyController implements Controller {
             if (enemy.getTransform().getX() <= 200) {
                 directionX = 1f;
             }
-            enemy.move(directionX, directionY, delta);
+            Vector2 direction = new Vector2(directionX, directionY);
+            enemy.move(direction, delta);
 
         }
     }

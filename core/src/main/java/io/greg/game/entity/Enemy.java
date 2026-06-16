@@ -2,6 +2,7 @@ package io.greg.game.entity;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
 import io.greg.engine.collision.Collision;
 import io.greg.engine.entity.Entity;
 import io.greg.engine.transform.Transform;
@@ -18,9 +19,9 @@ public class Enemy extends Entity {
     }
 
     @Override
-    public void move(float x, float y, float delta) {
-        float dx = x * speed * delta;
-        float dy = y * speed * delta;
+    public void move(Vector2 direction, float delta) {
+        float dx = direction.x * speed * delta;
+        float dy = direction.y * speed * delta;
         translate(dx,dy);
     }
 
